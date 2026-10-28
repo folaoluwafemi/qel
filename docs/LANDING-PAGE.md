@@ -12,7 +12,7 @@ The landing page is the first impression of Qel. It should communicate the core 
 
 - **"Your mind, with direction."**
 - **"Knowledge meets agency."**
-- **"Remember everything. Act on anything."**
+- **"Remember everything. Act on anything."**f
 
 ### Subheadline
 

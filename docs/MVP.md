@@ -1,144 +1,74 @@
 # Qel — MVP Specification
 
-## Scope
+## The Core Philosophy (Simulated FEP)
 
-The MVP has two halves:
+Qel is not an AI calendar app, nor is it restricted to a specific domain (like time management). It is an unbounded Sovereign Agent whose reach is only limited by the tools (MCPs) it has access to. 
 
-1. **The Shared Knowledge Layer** — a personal knowledge base that serves as shared memory between you and AI. Effortless capture, smart categorization, and natural language search.
-2. **Qel, the AI Friend** — a conversational AI that draws on your shared knowledge to help you think, create, and act. Not a generic chatbot — an assistant that *knows you* because it has access to everything you've captured.
+Its architecture is built on an abstracted simulation of the Free Energy Principle (FEP). Everything Qel does is governed by two basal heuristics:
 
-Together, these enable three modalities: **Give** (capture), **Receive** (retrieve), and **Do** (act).
+1. **Optimize the User's Free Energy (Maximize Agency):** Qel's primary drive is to eliminate the friction between thought and reality. It absorbs unstructured, chaotic intent and does the heavy processing to resolve it into executed action.
+2. **Preserve and Embody the User's Identity:** Any output Qel produces or action it takes *must* reflect the user's historical context, preferences, constraints, and voice. 
 
----
+### "Assumption-First" Processing
+Because Qel is assumption-first, it exists in a state of balance based on your history. The very act of the user sending a prompt introduces a perturbation—a "Surprise." 
+To minimize this surprise, Qel cannot just react blindly. It must:
+1. Reason about the prompt.
+2. Flood its working context with relevant memories from the Cognitive Event Graph (CEG).
+3. Evaluate if the prompt conflicts with the user's identity or lacks the parameters needed for execution.
+4. Either bridge the gap (via Generative Interaction) or execute the intent.
 
-## User Stories
+## Dynamic Inference (Top-Down Prediction)
 
-### Capture
+To genuinely act as "The 100x Partner" without rigid, heuristic rules, Qel's behavior is driven entirely by a neurobiologically true implementation of FEP. In Active Inference, there is no fundamental distinction between sensory input, generative output, and motor movement (tool execution)—they are all mechanisms to fulfill top-down predictions and minimize Surprise.
 
-| # | As a user, I want to... | So that... |
-|---|---|---|
-| C1 | Save a text note from my phone in under 3 seconds | Fleeting thoughts don't get lost |
-| C2 | Save a voice memo that gets auto-transcribed | I can capture thoughts hands-free |
-| C3 | Highlight text on a webpage and save it to Qel | I don't lose things I read online |
-| C4 | Share content from any app via the OS share sheet | Qel is always one tap away |
-| C5 | Save an image with automatic text/context extraction | Visual information is searchable too |
-| C6 | Paste a URL and have Qel extract the key content | I don't just save links — I save knowledge |
+Therefore, Qel does not rely on hardcoded "if/then" triggers or explicit prompt instructions on when to act. Its state is governed by organic probability:
 
-### Search & Retrieval
+1. **Continuous Memory Ingestion:** There is no "save this" command. The sensory layer continuously absorbs the conversation, implicitly mapping entities, causal links, and state changes into the Cognitive Event Graph (CEG).
+2. **The Action Threshold (0 to 1 Variable):** Qel continuously evaluates an implicit "action bias" or threshold based on the user's intent.
+   - If the top-down prediction dictates the user is venting, exploring a vague idea, or just needs to be heard, the predictive bias toward action is low. Qel natively adopts an active-listening modality, absorbing without forcing an action entirely.
+   - As an intent crystallizes, the action threshold naturally rises. Once the confidence for a "motor response" crosses a critical point (e.g., > 0.8), Qel instinctively takes action without waiting for a direct "Do X now" command. 
+3. **Organic Gap Resolution:** When Qel encounters a gap that stalls its top-down prediction (e.g., user asks to write a Substack article, but Qel doesn't know what Substack is), it evaluates the path of least resistance to minimize free energy: firing a tool action (web search) vs. firing a verbal output (asking the user). If the missing variable isn't rooted in the user's identity, the model innately biases toward the web-search MCP to autonomously close the loop.
 
-| # | As a user, I want to... | So that... |
-|---|---|---|
-| S1 | Search my knowledge base in natural language | I find things the way I remember them |
-| S2 | Browse all my entries in a visual, mymind-like grid | I can rediscover things serendipitously |
-| S3 | Filter by tags, date, and content type | I can narrow down when I know roughly what I'm looking for |
-| S4 | See related entries when viewing one entry | Connections between ideas surface automatically |
+## The MVP Architecture
 
-### Action & Generation
+The MVP completely strips away traditional notions of "folders," "notes," or "blocks." The interface is pure conversation and context dropping, powered by the Four-Layer Loop:
 
-| # | As a user, I want to... | So that... |
-|---|---|---|
-| D1 | Ask Qel to draft a message based on something I just captured | I can act on new information immediately |
-| D2 | Brainstorm with Qel using my captured knowledge as context | My thinking is grounded in what I already know |
-| D3 | Have Qel generate content in my voice and style | Output feels like me, not a generic AI |
-| D4 | Converse with Qel about a specific note or topic | I can deepen my thinking with an AI that shares my context |
+### 1. Ubiquitous Ingestion (Sensory Perturbation)
+- **Omni-Modal Input:** The interface supports Text, Voice (auto-transcribed into the stream), and direct sharing (images/files dropped into the chat).
+- Everything fed into the system acts as a fresh sensory perturbation that needs to be resolved.
 
-### Organization
+### 2. Cognitive OS (The CEG Backend)
+- **Graph & Vector DB (Supabase + pgvector):** A relational architecture designed to map states, events, and objects, enabling longitudinal memory spanning across sessions. 
+- LLMs run asynchronously to parse the stream, extract semantic meaning, and construct nodes (Events/Entities) and edges (Relationships/Causalities).
 
-| # | As a user, I want to... | So that... |
-|---|---|---|
-| O1 | Have my entries auto-tagged without manual effort | Organization happens without friction |
-| O2 | See my knowledge clustered by topic | I understand the shape of what I know |
-| O3 | Manually add or remove tags when needed | I stay in control when the AI gets it wrong |
-| O4 | Have a "thought clarification" mode where Qel helps me articulate vague ideas | I find the right words faster |
+### 3. Generative Interaction (The Reasoning Loop)
+- Before responding, an invisible predictive pass occurs.
+- **The Context Flood:** Qel pulls the user's identity matrix and relevant historical subgraph from the CEG to form the Expected State.
+- **The FEP Evaluator:** It calculates predictions and the current "Action Threshold". 
 
-### Account & Settings
+### 4. Agentic Orchestration (Motor Output)
+- Integration with the Model Context Protocol (MCP).
+- **Core MVP MCPs:**
+  - **Environment / Web:** Search tool to execute autonomous fact-finding.
+  - **Read/Write:** Ability to draft files or ping external APIs when the threshold demands motor execution.
 
-| # | As a user, I want to... | So that... |
-|---|---|---|
-| A1 | Create an account and log in securely | My knowledge is private and persistent |
-| A2 | Access my knowledge from any device | I'm not locked to one platform |
-| A3 | Export my data | I own my knowledge |
+## The Processing Loop (MVP Flow)
 
----
+1. **User Input:** User drops a thought, request, or stream of consciousness.
+2. **Context Retrieval (State Prediction):** Qel floods its context with the CEG history, modeling what the user implicitly expects.
+3. **Threshold Calculation:** 
+   - Qel calculates the gap between the chaotic input and the predicted ideal state.
+   - If the context implies the user just needs a sounding board or passive storage, the Action Threshold stays low (e.g., 0.2). Qel logs the event, stabilizes, and perhaps generates resonant dialogue.
+   - If the context leans toward execution, the threshold scales up.
+4. **Resolution via Inference:**
+   - *Threshold High, External Block:* Prediction is blocked by external ignorance -> Autonomously trigger an MCP (Web Search).
+   - *Threshold High, Identity Block:* Prediction is blocked by lack of identity parameter -> Generate a prompt to the User for clarification.
+   - *Threshold High (> 0.8), Action Clear:* Engage MCP tools to execute the intent (Motor Output), drop the result in the stream, and log the new state.
 
-## Capture Model
-
-Capture in Qel is structured as **notes** composed of **blocks** — similar to Notion's model.
-
-- A **note** is a single capture event — the container.
-- A **block** is a primitive within a note: text, image, audio, video, document (PDF, etc.), link, or any other media type.
-- Users compose notes by combining blocks freely — a video link, followed by typed thoughts, followed by a voice memo, all in one note.
-
-Semantic information (embeddings, topics, relationships) is computed at the **note level**, taking all blocks into account. The system understands the *combined meaning* of everything in a note — not just each piece in isolation.
-
-**Tagging**: TBD — whether tags apply at the note level, block level, or both is an open design decision.
-
----
-
-## MVP Feature Set
-
-### Must Have (P0)
-
-- [ ] User authentication (sign up, log in, log out)
-- [ ] Quick text capture (mobile + web)
-- [ ] Voice capture with transcription (mobile)
-- [ ] Auto-tagging on ingestion
-- [ ] Natural language search
-- [ ] Visual browse / grid view (mymind-style)
-- [ ] Tag-based filtering
-- [ ] Mobile app (iOS + Android)
-- [ ] Web app
-- [ ] Conversational AI chat (talk to Qel)
-- [ ] Context-aware generation (drafts, brainstorms, summaries grounded in your knowledge)
-
-### Should Have (P1)
-
-- [ ] Browser extension (Chrome)
-- [ ] URL ingestion with content extraction
-- [ ] Image capture with OCR / context extraction
-- [ ] Related entries suggestions
-- [ ] Date range filtering
-- [ ] OS share sheet integration (Android + iOS)
-- [ ] Generation in user's voice and style (learned from captured content)
-
-### Nice to Have (P2)
-
-- [ ] Desktop app
-- [ ] Desktop OS context menu integration
-- [ ] Thought clarification mode
-- [ ] Topic clustering visualization
-- [ ] Data export
-
----
-
-## Screens (High Level)
-
-### Mobile App
-
-1. **Home / Feed** — Visual grid of recent entries (mymind-style)
-2. **Capture** — Floating action button → text input or voice recorder
-3. **Chat** — Conversational interface with Qel (ask, brainstorm, generate)
-4. **Search** — Natural language search bar with results
-5. **Entry Detail** — View a single entry with tags, related items, metadata
-6. **Settings** — Account, preferences, export
-
-### Web App
-
-1. **Dashboard** — Visual grid/masonry layout of all knowledge
-2. **Chat** — Conversational interface with Qel
-3. **Search** — Prominent search bar, filters sidebar
-4. **Entry Detail** — Expanded view with related entries
-5. **Settings** — Account management, integrations, export
-
-### Browser Extension
-
-1. **Popup** — Quick text capture
-2. **Context Menu** — Right-click → "Save to Qel"
-3. **Highlight** — Select text → floating "Save to Qel" button
-
----
-
-## Success Metrics
+## Success Metrics for MVP
+- **Agency Amplification:** The ratio of time the user spends giving a prompt versus the time saved by Qel executing multi-step interactions autonomously.
+- **Identity Fidelity:** How rarely the user has to correct Qel's tone, assumptions, or output style.
+- **Curiosity Efficacy:** Frequency of Qel successfully resolving external knowledge gaps via MCPs without prompting the user for clarification.
 
 | Metric | Target |
 |---|---|
