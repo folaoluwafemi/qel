@@ -1,0 +1,60 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "qel-api",
+  "account_id": "4c57766aa127c07e9d2463901430339b",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-02-14",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // R2 Object Storage Binding (Zero Egress for Audio / Visual Media)
+  "r2_buckets": [
+    {
+      "binding": "MEDIA_BUCKET",
+      "bucket_name": "qel-media-store"
+    }
+  ],
+
+  // Cloudflare Vectorize Edge Index Bindings
+  "vectorize": [
+    {
+      "binding": "SEMANTIC_INDEX",
+      "index_name": "qel-semantic-index"
+    },
+    {
+      "binding": "VISUAL_INDEX",
+      "index_name": "qel-visual-index"
+    }
+  ],
+
+  // Cloudflare Durable Objects (Realtime Canvas Sync via WebSockets)
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "CANVAS_SPACES",
+        "class_name": "CanvasSpaceDO"
+      }
+    ]
+  },
+
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["CanvasSpaceDO"]
+    }
+  ],
+
+
+  // Ingestion Queue Binding
+  "queues": {
+    "producers": [
+      {
+        "binding": "INGEST_QUEUE",
+        "queue": "qel-ingest-queue"
+      }
+    ]
+  },
+
+  "vars": {
+    "ENVIRONMENT": "development"
+  }
+}

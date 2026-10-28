@@ -1,0 +1,9 @@
+node_modules
+.next
+dist
+.output
+.git
+.agents
+.gemini
+*.log
+.env

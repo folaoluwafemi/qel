@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "jsx": "react-jsx",
+    "moduleResolution": "Bundler",
+    "types": ["wxt/client"]
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".wxt/types/**/*.d.ts"]
+}
